@@ -37,18 +37,23 @@ pub struct Interaction {
     ///
     /// [`ApplicationCommand`]: self::InteractionType::ApplicationCommand
     /// [`kind`]: Interaction::kind
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<ApplicationCommandInteractionData>,
     /// The guild Id this interaction was sent from, if there is one.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub guild_id: Option<GuildId>,
     /// The channel Id this interaction was sent from, if there is one.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub channel_id: Option<ChannelId>,
     /// The `member` data for the invoking user.
     ///
     /// **Note**: It is only present if the interaction is triggered in a guild.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub member: Option<Member>,
     /// The `user` object for the invoking user.
     ///
     /// It is only present if the interaction is triggered in DM.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<User>,
     /// A continuation token for responding to the interaction.
     pub token: String,
