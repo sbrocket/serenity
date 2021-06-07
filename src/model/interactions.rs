@@ -116,7 +116,7 @@ impl<'de> Deserialize<'de> for Interaction {
                     .and_then(|v| if v == Value::Null { None } else { Some(v) })
                     .map(ApplicationCommandInteractionData::deserialize)
                     .transpose()
-                    .map_err(DeError::custom);
+                    .map_err(DeError::custom)?;
 
         let guild_id = map.remove("guild_id")
                     .and_then(|v| if v == Value::Null { None } else { Some(v) })
@@ -139,6 +139,7 @@ impl<'de> Deserialize<'de> for Interaction {
         let user = map.remove("user")
                     .and_then(|v| if v == Value::Null { None } else { Some(v) })
                     .map(User::deserialize)
+                    .transpose()
                     .map_err(DeError::custom)?;
 
         let token = map
