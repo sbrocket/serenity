@@ -37,23 +37,18 @@ pub struct Interaction {
     ///
     /// [`ApplicationCommand`]: self::InteractionType::ApplicationCommand
     /// [`kind`]: Interaction::kind
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<ApplicationCommandInteractionData>,
     /// The guild Id this interaction was sent from, if there is one.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub guild_id: Option<GuildId>,
     /// The channel Id this interaction was sent from, if there is one.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub channel_id: Option<ChannelId>,
     /// The `member` data for the invoking user.
     ///
     /// **Note**: It is only present if the interaction is triggered in a guild.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub member: Option<Member>,
     /// The `user` object for the invoking user.
     ///
     /// It is only present if the interaction is triggered in DM.
-    #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<User>,
     /// A continuation token for responding to the interaction.
     pub token: String,
@@ -117,55 +112,34 @@ impl<'de> Deserialize<'de> for Interaction {
             .and_then(InteractionType::deserialize)
             .map_err(DeError::custom)?;
 
-        let data = match map.contains_key("data") {
-            true => Some(
-                map.remove("data")
-                    .ok_or_else(|| DeError::custom("expected data"))
-                    .and_then(ApplicationCommandInteractionData::deserialize)
-                    .map_err(DeError::custom)?,
-            ),
-            false => None,
-        };
+        let data = map.remove("data")
+                    .and_then(|v| if v == Value::Null { None } else { Some(v) })
+                    .map(ApplicationCommandInteractionData::deserialize)
+                    .transpose()
+                    .map_err(DeError::custom);
 
-        let guild_id = match map.contains_key("guild_id") {
-            true => Some(
-                map.remove("guild_id")
-                    .ok_or_else(|| DeError::custom("expected guild_id"))
-                    .and_then(GuildId::deserialize)
-                    .map_err(DeError::custom)?,
-            ),
-            false => None,
-        };
+        let guild_id = map.remove("guild_id")
+                    .and_then(|v| if v == Value::Null { None } else { Some(v) })
+                    .map(GuildId::deserialize)
+                    .transpose()
+                    .map_err(DeError::custom)?;
 
-        let channel_id = match map.contains_key("channel_id") {
-            true => Some(
-                map.remove("channel_id")
-                    .ok_or_else(|| DeError::custom("expected channel_id"))
-                    .and_then(ChannelId::deserialize)
-                    .map_err(DeError::custom)?,
-            ),
-            false => None,
-        };
+        let channel_id = map.remove("channel_id")
+                    .and_then(|v| if v == Value::Null { None } else { Some(v) })
+                    .map(ChannelId::deserialize)
+                    .transpose()
+                    .map_err(DeError::custom)?;
 
-        let member = match map.contains_key("member") {
-            true => Some(
-                map.remove("member")
-                    .ok_or_else(|| DeError::custom("expected member"))
-                    .and_then(Member::deserialize)
-                    .map_err(DeError::custom)?,
-            ),
-            false => None,
-        };
+        let member = map.remove("member")
+                    .and_then(|v| if v == Value::Null { None } else { Some(v) })
+                    .map(Member::deserialize)
+                    .transpose()
+                    .map_err(DeError::custom)?;
 
-        let user = match map.contains_key("user") {
-            true => Some(
-                map.remove("user")
-                    .ok_or_else(|| DeError::custom("expected user"))
-                    .and_then(User::deserialize)
-                    .map_err(DeError::custom)?,
-            ),
-            false => None,
-        };
+        let user = map.remove("user")
+                    .and_then(|v| if v == Value::Null { None } else { Some(v) })
+                    .map(User::deserialize)
+                    .map_err(DeError::custom)?;
 
         let token = map
             .remove("token")
