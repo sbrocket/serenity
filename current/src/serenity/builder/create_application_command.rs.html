@@ -1,7 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/builder/create_application_command.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>create_application_command.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
-<link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../serenity/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button">?</button>
-                <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;builder&#x2F;create_application_command.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>create_application_command.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../serenity/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -229,13 +226,13 @@
 
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">Value</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">model::interactions::ApplicationCommandOptionType</span>, <span class="ident">utils</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">model::interactions::application_command::ApplicationCommandOptionType</span>, <span class="ident">utils</span>};
 
 <span class="doccomment">/// A builder for creating a new [`ApplicationCommandOption`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Self::kind`], [`Self::name`], and [`Self::description`] are required fields.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ApplicationCommandOption`]: crate::model::interactions::ApplicationCommandOption</span>
+<span class="doccomment">/// [`ApplicationCommandOption`]: crate::model::interactions::application_command::ApplicationCommandOption</span>
 <span class="doccomment">/// [`kind`]: Self::kind</span>
 <span class="doccomment">/// [`name`]: Self::name</span>
 <span class="doccomment">/// [`description`]: Self::description</span>
@@ -281,7 +278,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Interaction commands can optionally have a limited</span>
+    <span class="doccomment">/// Application commands can optionally have a limited</span>
     <span class="doccomment">/// number of integer or string choices.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// **Note**: There can be no more than 10 choices set.</span>
@@ -311,8 +308,8 @@
 
     <span class="doccomment">/// If the option is a [`SubCommand`] or [`SubCommandGroup`] nested options are its parameters.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`SubCommand`]: crate::model::interactions::ApplicationCommandOptionType::SubCommand</span>
-    <span class="doccomment">/// [`SubCommandGroup`]: crate::model::interactions::ApplicationCommandOptionType::SubCommandGroup</span>
+    <span class="doccomment">/// [`SubCommand`]: crate::model::interactions::application_command::ApplicationCommandOptionType::SubCommand</span>
+    <span class="doccomment">/// [`SubCommandGroup`]: crate::model::interactions::application_command::ApplicationCommandOptionType::SubCommandGroup</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_sub_option</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>
     <span class="kw">where</span>
         <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CreateApplicationCommandOption</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CreateApplicationCommandOption</span>,
@@ -336,12 +333,12 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`Self::name`] and [`Self::description`] are required fields.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [`ApplicationCommand`]: crate::model::interactions::ApplicationCommand</span>
+<span class="doccomment">/// [`ApplicationCommand`]: crate::model::interactions::application_command::ApplicationCommand</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CreateApplicationCommand</span>(<span class="kw">pub</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>, <span class="ident">Value</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">CreateApplicationCommand</span> {
-    <span class="doccomment">/// Specify the name of the Interaction.</span>
+    <span class="doccomment">/// Specify the name of the application command.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// **Note**: Must be between 1 and 32 characters long,</span>
     <span class="doccomment">/// and cannot start with a space.</span>
@@ -360,7 +357,7 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Specify the description of the Interaction.</span>
+    <span class="doccomment">/// Specify the description of the application command.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// **Note**: Must be between 1 and 100 characters long.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">description</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">ToString</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">description</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
@@ -368,9 +365,9 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Create an interaction option for the interaction.</span>
+    <span class="doccomment">/// Create an application command option for the application command.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// **Note**: Interactions can only have up to 10 options.</span>
+    <span class="doccomment">/// **Note**: Application commands can only have up to 10 options.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_option</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>
     <span class="kw">where</span>
         <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CreateApplicationCommandOption</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CreateApplicationCommandOption</span>,
@@ -380,9 +377,9 @@
         <span class="self">self</span>.<span class="ident">add_option</span>(<span class="ident">data</span>)
     }
 
-    <span class="doccomment">/// Add an interaction option for the interaction.</span>
+    <span class="doccomment">/// Add an application command option for the application command.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// **Note**: Interactions can only have up to 10 options.</span>
+    <span class="doccomment">/// **Note**: Application commands can only have up to 10 options.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_option</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">option</span>: <span class="ident">CreateApplicationCommandOption</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">new_option</span> <span class="op">=</span> <span class="ident">utils::hashmap_to_json_map</span>(<span class="ident">option</span>.<span class="number">0</span>);
         <span class="kw">let</span> <span class="ident">options</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">entry</span>(<span class="string">&quot;options&quot;</span>).<span class="ident">or_insert_with</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Value::Array</span>(<span class="ident">Vec::new</span>()));
@@ -392,9 +389,9 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Sets all the interaction options for the interaction.</span>
+    <span class="doccomment">/// Sets all the application command options for the application command.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// **Note**: Interactions can only have up to 10 options.</span>
+    <span class="doccomment">/// **Note**: Application commands can only have up to 10 options.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_options</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">options</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CreateApplicationCommandOption</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">new_options</span> <span class="op">=</span> <span class="ident">options</span>
             .<span class="ident">into_iter</span>()
@@ -423,8 +420,8 @@
     }
 
     <span class="doccomment">/// Adds a new application command.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_application_command</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">interaction</span>: <span class="ident">CreateApplicationCommand</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="ident">new_data</span> <span class="op">=</span> <span class="ident">Value::Object</span>(<span class="ident">utils::hashmap_to_json_map</span>(<span class="ident">interaction</span>.<span class="number">0</span>));
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_application_command</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">command</span>: <span class="ident">CreateApplicationCommand</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">new_data</span> <span class="op">=</span> <span class="ident">Value::Object</span>(<span class="ident">utils::hashmap_to_json_map</span>(<span class="ident">command</span>.<span class="number">0</span>));
 
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">push</span>(<span class="ident">new_data</span>);
 
@@ -434,9 +431,9 @@
     <span class="doccomment">/// Sets all the application commands.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_application_commands</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">interactions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CreateApplicationCommand</span><span class="op">&gt;</span>,
+        <span class="ident">commands</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CreateApplicationCommand</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="ident">new_application_command</span> <span class="op">=</span> <span class="ident">interactions</span>
+        <span class="kw">let</span> <span class="ident">new_application_command</span> <span class="op">=</span> <span class="ident">commands</span>
             .<span class="ident">into_iter</span>()
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">Value::Object</span>(<span class="ident">utils::hashmap_to_json_map</span>(<span class="ident">f</span>.<span class="number">0</span>)))
             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span><span class="op">&gt;</span>();
@@ -450,4 +447,5 @@
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
-    <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>
+    <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script>
+</body></html>

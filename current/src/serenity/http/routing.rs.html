@@ -1,7 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/http/routing.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>routing.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
-<link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../serenity/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button">?</button>
-                <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;http&#x2F;routing.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>routing.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../serenity/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -2240,6 +2237,384 @@
 <span id="2237">2237</span>
 <span id="2238">2238</span>
 <span id="2239">2239</span>
+<span id="2240">2240</span>
+<span id="2241">2241</span>
+<span id="2242">2242</span>
+<span id="2243">2243</span>
+<span id="2244">2244</span>
+<span id="2245">2245</span>
+<span id="2246">2246</span>
+<span id="2247">2247</span>
+<span id="2248">2248</span>
+<span id="2249">2249</span>
+<span id="2250">2250</span>
+<span id="2251">2251</span>
+<span id="2252">2252</span>
+<span id="2253">2253</span>
+<span id="2254">2254</span>
+<span id="2255">2255</span>
+<span id="2256">2256</span>
+<span id="2257">2257</span>
+<span id="2258">2258</span>
+<span id="2259">2259</span>
+<span id="2260">2260</span>
+<span id="2261">2261</span>
+<span id="2262">2262</span>
+<span id="2263">2263</span>
+<span id="2264">2264</span>
+<span id="2265">2265</span>
+<span id="2266">2266</span>
+<span id="2267">2267</span>
+<span id="2268">2268</span>
+<span id="2269">2269</span>
+<span id="2270">2270</span>
+<span id="2271">2271</span>
+<span id="2272">2272</span>
+<span id="2273">2273</span>
+<span id="2274">2274</span>
+<span id="2275">2275</span>
+<span id="2276">2276</span>
+<span id="2277">2277</span>
+<span id="2278">2278</span>
+<span id="2279">2279</span>
+<span id="2280">2280</span>
+<span id="2281">2281</span>
+<span id="2282">2282</span>
+<span id="2283">2283</span>
+<span id="2284">2284</span>
+<span id="2285">2285</span>
+<span id="2286">2286</span>
+<span id="2287">2287</span>
+<span id="2288">2288</span>
+<span id="2289">2289</span>
+<span id="2290">2290</span>
+<span id="2291">2291</span>
+<span id="2292">2292</span>
+<span id="2293">2293</span>
+<span id="2294">2294</span>
+<span id="2295">2295</span>
+<span id="2296">2296</span>
+<span id="2297">2297</span>
+<span id="2298">2298</span>
+<span id="2299">2299</span>
+<span id="2300">2300</span>
+<span id="2301">2301</span>
+<span id="2302">2302</span>
+<span id="2303">2303</span>
+<span id="2304">2304</span>
+<span id="2305">2305</span>
+<span id="2306">2306</span>
+<span id="2307">2307</span>
+<span id="2308">2308</span>
+<span id="2309">2309</span>
+<span id="2310">2310</span>
+<span id="2311">2311</span>
+<span id="2312">2312</span>
+<span id="2313">2313</span>
+<span id="2314">2314</span>
+<span id="2315">2315</span>
+<span id="2316">2316</span>
+<span id="2317">2317</span>
+<span id="2318">2318</span>
+<span id="2319">2319</span>
+<span id="2320">2320</span>
+<span id="2321">2321</span>
+<span id="2322">2322</span>
+<span id="2323">2323</span>
+<span id="2324">2324</span>
+<span id="2325">2325</span>
+<span id="2326">2326</span>
+<span id="2327">2327</span>
+<span id="2328">2328</span>
+<span id="2329">2329</span>
+<span id="2330">2330</span>
+<span id="2331">2331</span>
+<span id="2332">2332</span>
+<span id="2333">2333</span>
+<span id="2334">2334</span>
+<span id="2335">2335</span>
+<span id="2336">2336</span>
+<span id="2337">2337</span>
+<span id="2338">2338</span>
+<span id="2339">2339</span>
+<span id="2340">2340</span>
+<span id="2341">2341</span>
+<span id="2342">2342</span>
+<span id="2343">2343</span>
+<span id="2344">2344</span>
+<span id="2345">2345</span>
+<span id="2346">2346</span>
+<span id="2347">2347</span>
+<span id="2348">2348</span>
+<span id="2349">2349</span>
+<span id="2350">2350</span>
+<span id="2351">2351</span>
+<span id="2352">2352</span>
+<span id="2353">2353</span>
+<span id="2354">2354</span>
+<span id="2355">2355</span>
+<span id="2356">2356</span>
+<span id="2357">2357</span>
+<span id="2358">2358</span>
+<span id="2359">2359</span>
+<span id="2360">2360</span>
+<span id="2361">2361</span>
+<span id="2362">2362</span>
+<span id="2363">2363</span>
+<span id="2364">2364</span>
+<span id="2365">2365</span>
+<span id="2366">2366</span>
+<span id="2367">2367</span>
+<span id="2368">2368</span>
+<span id="2369">2369</span>
+<span id="2370">2370</span>
+<span id="2371">2371</span>
+<span id="2372">2372</span>
+<span id="2373">2373</span>
+<span id="2374">2374</span>
+<span id="2375">2375</span>
+<span id="2376">2376</span>
+<span id="2377">2377</span>
+<span id="2378">2378</span>
+<span id="2379">2379</span>
+<span id="2380">2380</span>
+<span id="2381">2381</span>
+<span id="2382">2382</span>
+<span id="2383">2383</span>
+<span id="2384">2384</span>
+<span id="2385">2385</span>
+<span id="2386">2386</span>
+<span id="2387">2387</span>
+<span id="2388">2388</span>
+<span id="2389">2389</span>
+<span id="2390">2390</span>
+<span id="2391">2391</span>
+<span id="2392">2392</span>
+<span id="2393">2393</span>
+<span id="2394">2394</span>
+<span id="2395">2395</span>
+<span id="2396">2396</span>
+<span id="2397">2397</span>
+<span id="2398">2398</span>
+<span id="2399">2399</span>
+<span id="2400">2400</span>
+<span id="2401">2401</span>
+<span id="2402">2402</span>
+<span id="2403">2403</span>
+<span id="2404">2404</span>
+<span id="2405">2405</span>
+<span id="2406">2406</span>
+<span id="2407">2407</span>
+<span id="2408">2408</span>
+<span id="2409">2409</span>
+<span id="2410">2410</span>
+<span id="2411">2411</span>
+<span id="2412">2412</span>
+<span id="2413">2413</span>
+<span id="2414">2414</span>
+<span id="2415">2415</span>
+<span id="2416">2416</span>
+<span id="2417">2417</span>
+<span id="2418">2418</span>
+<span id="2419">2419</span>
+<span id="2420">2420</span>
+<span id="2421">2421</span>
+<span id="2422">2422</span>
+<span id="2423">2423</span>
+<span id="2424">2424</span>
+<span id="2425">2425</span>
+<span id="2426">2426</span>
+<span id="2427">2427</span>
+<span id="2428">2428</span>
+<span id="2429">2429</span>
+<span id="2430">2430</span>
+<span id="2431">2431</span>
+<span id="2432">2432</span>
+<span id="2433">2433</span>
+<span id="2434">2434</span>
+<span id="2435">2435</span>
+<span id="2436">2436</span>
+<span id="2437">2437</span>
+<span id="2438">2438</span>
+<span id="2439">2439</span>
+<span id="2440">2440</span>
+<span id="2441">2441</span>
+<span id="2442">2442</span>
+<span id="2443">2443</span>
+<span id="2444">2444</span>
+<span id="2445">2445</span>
+<span id="2446">2446</span>
+<span id="2447">2447</span>
+<span id="2448">2448</span>
+<span id="2449">2449</span>
+<span id="2450">2450</span>
+<span id="2451">2451</span>
+<span id="2452">2452</span>
+<span id="2453">2453</span>
+<span id="2454">2454</span>
+<span id="2455">2455</span>
+<span id="2456">2456</span>
+<span id="2457">2457</span>
+<span id="2458">2458</span>
+<span id="2459">2459</span>
+<span id="2460">2460</span>
+<span id="2461">2461</span>
+<span id="2462">2462</span>
+<span id="2463">2463</span>
+<span id="2464">2464</span>
+<span id="2465">2465</span>
+<span id="2466">2466</span>
+<span id="2467">2467</span>
+<span id="2468">2468</span>
+<span id="2469">2469</span>
+<span id="2470">2470</span>
+<span id="2471">2471</span>
+<span id="2472">2472</span>
+<span id="2473">2473</span>
+<span id="2474">2474</span>
+<span id="2475">2475</span>
+<span id="2476">2476</span>
+<span id="2477">2477</span>
+<span id="2478">2478</span>
+<span id="2479">2479</span>
+<span id="2480">2480</span>
+<span id="2481">2481</span>
+<span id="2482">2482</span>
+<span id="2483">2483</span>
+<span id="2484">2484</span>
+<span id="2485">2485</span>
+<span id="2486">2486</span>
+<span id="2487">2487</span>
+<span id="2488">2488</span>
+<span id="2489">2489</span>
+<span id="2490">2490</span>
+<span id="2491">2491</span>
+<span id="2492">2492</span>
+<span id="2493">2493</span>
+<span id="2494">2494</span>
+<span id="2495">2495</span>
+<span id="2496">2496</span>
+<span id="2497">2497</span>
+<span id="2498">2498</span>
+<span id="2499">2499</span>
+<span id="2500">2500</span>
+<span id="2501">2501</span>
+<span id="2502">2502</span>
+<span id="2503">2503</span>
+<span id="2504">2504</span>
+<span id="2505">2505</span>
+<span id="2506">2506</span>
+<span id="2507">2507</span>
+<span id="2508">2508</span>
+<span id="2509">2509</span>
+<span id="2510">2510</span>
+<span id="2511">2511</span>
+<span id="2512">2512</span>
+<span id="2513">2513</span>
+<span id="2514">2514</span>
+<span id="2515">2515</span>
+<span id="2516">2516</span>
+<span id="2517">2517</span>
+<span id="2518">2518</span>
+<span id="2519">2519</span>
+<span id="2520">2520</span>
+<span id="2521">2521</span>
+<span id="2522">2522</span>
+<span id="2523">2523</span>
+<span id="2524">2524</span>
+<span id="2525">2525</span>
+<span id="2526">2526</span>
+<span id="2527">2527</span>
+<span id="2528">2528</span>
+<span id="2529">2529</span>
+<span id="2530">2530</span>
+<span id="2531">2531</span>
+<span id="2532">2532</span>
+<span id="2533">2533</span>
+<span id="2534">2534</span>
+<span id="2535">2535</span>
+<span id="2536">2536</span>
+<span id="2537">2537</span>
+<span id="2538">2538</span>
+<span id="2539">2539</span>
+<span id="2540">2540</span>
+<span id="2541">2541</span>
+<span id="2542">2542</span>
+<span id="2543">2543</span>
+<span id="2544">2544</span>
+<span id="2545">2545</span>
+<span id="2546">2546</span>
+<span id="2547">2547</span>
+<span id="2548">2548</span>
+<span id="2549">2549</span>
+<span id="2550">2550</span>
+<span id="2551">2551</span>
+<span id="2552">2552</span>
+<span id="2553">2553</span>
+<span id="2554">2554</span>
+<span id="2555">2555</span>
+<span id="2556">2556</span>
+<span id="2557">2557</span>
+<span id="2558">2558</span>
+<span id="2559">2559</span>
+<span id="2560">2560</span>
+<span id="2561">2561</span>
+<span id="2562">2562</span>
+<span id="2563">2563</span>
+<span id="2564">2564</span>
+<span id="2565">2565</span>
+<span id="2566">2566</span>
+<span id="2567">2567</span>
+<span id="2568">2568</span>
+<span id="2569">2569</span>
+<span id="2570">2570</span>
+<span id="2571">2571</span>
+<span id="2572">2572</span>
+<span id="2573">2573</span>
+<span id="2574">2574</span>
+<span id="2575">2575</span>
+<span id="2576">2576</span>
+<span id="2577">2577</span>
+<span id="2578">2578</span>
+<span id="2579">2579</span>
+<span id="2580">2580</span>
+<span id="2581">2581</span>
+<span id="2582">2582</span>
+<span id="2583">2583</span>
+<span id="2584">2584</span>
+<span id="2585">2585</span>
+<span id="2586">2586</span>
+<span id="2587">2587</span>
+<span id="2588">2588</span>
+<span id="2589">2589</span>
+<span id="2590">2590</span>
+<span id="2591">2591</span>
+<span id="2592">2592</span>
+<span id="2593">2593</span>
+<span id="2594">2594</span>
+<span id="2595">2595</span>
+<span id="2596">2596</span>
+<span id="2597">2597</span>
+<span id="2598">2598</span>
+<span id="2599">2599</span>
+<span id="2600">2600</span>
+<span id="2601">2601</span>
+<span id="2602">2602</span>
+<span id="2603">2603</span>
+<span id="2604">2604</span>
+<span id="2605">2605</span>
+<span id="2606">2606</span>
+<span id="2607">2607</span>
+<span id="2608">2608</span>
+<span id="2609">2609</span>
+<span id="2610">2610</span>
+<span id="2611">2611</span>
+<span id="2612">2612</span>
+<span id="2613">2613</span>
+<span id="2614">2614</span>
+<span id="2615">2615</span>
+<span id="2616">2616</span>
+<span id="2617">2617</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">borrow::Cow</span>,
@@ -2353,6 +2728,60 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
     <span class="ident">ChannelsIdWebhooks</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/channels/:channel_id/messages/:message_id/threads` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">ChannelsIdMessagesIdThreads</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/channels/:channel_id/threads` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">ChannelsIdThreads</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/channels/:channel_id/thread-members/@me` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">ChannelsIdThreadMembersMe</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/channels/:channel_id/thread-members/:user_id` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">ChannelsIdThreadMembersUserId</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/channels/channel_id/thread-members` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">ChannelsIdThreadMembers</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/channels/:channel_id/threads/active` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">ChannelsIdActiveThreads</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/channels/:channel_id/threads/archived/public` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">ChannelsIdArchivedPublicThreads</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/channels/:channel_id/threads/archived/private` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">ChannelsIdArchivedPrivateThreads</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/channels/:channel_id/users/@me/threads/archived/private` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">ChannelsIdMeJoindedArchivedPrivateThreads</span>(<span class="ident">u64</span>),
     <span class="doccomment">/// Route for the `/gateway` path.</span>
     <span class="ident">Gateway</span>,
     <span class="doccomment">/// Route for the `/gateway/bot` path.</span>
@@ -2455,12 +2884,24 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`GuildId`]: crate::model::id::GuildId</span>
     <span class="ident">GuildsIdMembersIdRolesId</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/guilds/:guild_id/members/@me` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`GuildId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`GuildId`]: crate::model::id::GuildId</span>
+    <span class="ident">GuildsIdMembersMe</span>(<span class="ident">u64</span>),
     <span class="doccomment">/// Route for the `/guilds/:guild_id/members/@me/nick` path.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The data is the relevant [`GuildId`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`GuildId`]: crate::model::id::GuildId</span>
     <span class="ident">GuildsIdMembersMeNick</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/guilds/:guild_id/members/search` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`GuildId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`GuildId`]: crate::model::id::GuildId</span>
+    <span class="ident">GuildsIdMembersSearch</span>(<span class="ident">u64</span>),
     <span class="doccomment">/// Route for the `/guilds/:guild_id/prune` path.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The data is the relevant [`GuildId`].</span>
@@ -2523,6 +2964,8 @@
     <span class="ident">UsersMe</span>,
     <span class="doccomment">/// Route for the `/users/@me/channels` path.</span>
     <span class="ident">UsersMeChannels</span>,
+    <span class="doccomment">/// Route for the `/users/@me/connections` path.</span>
+    <span class="ident">UsersMeConnections</span>,
     <span class="doccomment">/// Route for the `/users/@me/guilds` path.</span>
     <span class="ident">UsersMeGuilds</span>,
     <span class="doccomment">/// Route for the `/users/@me/guilds/:guild_id` path.</span>
@@ -2601,6 +3044,18 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)))]</span>
     <span class="ident">ApplicationsIdGuildsIdCommandsId</span>(<span class="ident">u64</span>),
+    <span class="doccomment">/// Route for the `/stage-instances` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">StageInstances</span>,
+    <span class="doccomment">/// Route for the `/stage-instances/:channel_id` path.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The data is the relevant [`ChannelId`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`ChannelId`]: crate::model::id::ChannelId</span>
+    <span class="ident">StageInstancesChannelId</span>(<span class="ident">u64</span>),
     <span class="doccomment">/// Route where no ratelimit headers are in place (i.e. user account-only</span>
     <span class="doccomment">/// routes).</span>
     <span class="doccomment">///</span>
@@ -2660,6 +3115,7 @@
         <span class="macro">api!</span>(<span class="string">&quot;/channels/{}/messages/{}/reactions&quot;</span>, <span class="ident">channel_id</span>, <span class="ident">message_id</span>)
     }
 
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_message_reactions_list</span>(
         <span class="ident">channel_id</span>: <span class="ident">u64</span>,
         <span class="ident">message_id</span>: <span class="ident">u64</span>,
@@ -2673,7 +3129,6 @@
         );
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">after</span>) <span class="op">=</span> <span class="ident">after</span> {
-            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">uri</span>, <span class="string">&quot;&amp;after={}&quot;</span>, <span class="ident">after</span>);
         }
 
@@ -2706,6 +3161,87 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_webhooks</span>(<span class="ident">channel_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/webhooks&quot;</span>), <span class="ident">channel_id</span>)
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_public_threads</span>(<span class="ident">channel_id</span>: <span class="ident">u64</span>, <span class="ident">message_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/messages/{}/threads&quot;</span>), <span class="ident">channel_id</span>, <span class="ident">message_id</span>)
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_private_threads</span>(<span class="ident">channel_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/threads&quot;</span>), <span class="ident">channel_id</span>)
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_thread_member</span>(<span class="ident">channel_id</span>: <span class="ident">u64</span>, <span class="ident">user_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/thread-members/{}&quot;</span>), <span class="ident">channel_id</span>, <span class="ident">user_id</span>)
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_thread_member_me</span>(<span class="ident">channel_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/thread-members/@me&quot;</span>), <span class="ident">channel_id</span>)
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_thread_members</span>(<span class="ident">channel_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/thread-members&quot;</span>), <span class="ident">channel_id</span>)
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_active_threads</span>(<span class="ident">channel_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/threads/active&quot;</span>), <span class="ident">channel_id</span>)
+    }
+
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_archived_public_threads</span>(
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+        <span class="ident">before</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+        <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/threads/archived/public&quot;</span>), <span class="ident">channel_id</span>);
+
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">=</span> <span class="ident">before</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;before={}&quot;</span>, <span class="ident">id</span>);
+        }
+
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">limit</span>) <span class="op">=</span> <span class="ident">limit</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;limit={}&quot;</span>, <span class="ident">limit</span>);
+        }
+
+        <span class="ident">s</span>
+    }
+
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_archived_private_threads</span>(
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+        <span class="ident">before</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+        <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/threads/archived/private&quot;</span>), <span class="ident">channel_id</span>);
+
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">=</span> <span class="ident">before</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;before={}&quot;</span>, <span class="ident">id</span>);
+        }
+
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">limit</span>) <span class="op">=</span> <span class="ident">limit</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;limit={}&quot;</span>, <span class="ident">limit</span>);
+        }
+
+        <span class="ident">s</span>
+    }
+
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">channel_joined_private_threads</span>(
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+        <span class="ident">before</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+        <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/channels/{}/users/@me/threads/archived/private&quot;</span>), <span class="ident">channel_id</span>);
+
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">=</span> <span class="ident">before</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;before={}&quot;</span>, <span class="ident">id</span>);
+        }
+
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">limit</span>) <span class="op">=</span> <span class="ident">limit</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;limit={}&quot;</span>, <span class="ident">limit</span>);
+        }
+
+        <span class="ident">s</span>
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gateway</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
@@ -2825,20 +3361,34 @@
         <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members&quot;</span>), <span class="ident">guild_id</span>)
     }
 
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_members_search</span>(<span class="ident">guild_id</span>: <span class="ident">u64</span>, <span class="ident">query</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members/search?&quot;</span>), <span class="ident">guild_id</span>);
+
+        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;query={}&quot;</span>, <span class="ident">query</span>);
+
+        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;limit={}&quot;</span>, <span class="ident">limit</span>.<span class="ident">unwrap_or</span>(<span class="ident">constants::MEMBER_FETCH_LIMIT</span>));
+
+        <span class="ident">s</span>
+    }
+
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_members_optioned</span>(<span class="ident">guild_id</span>: <span class="ident">u64</span>, <span class="ident">after</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members?&quot;</span>), <span class="ident">guild_id</span>);
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">after</span>) <span class="op">=</span> <span class="ident">after</span> {
-            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;after={}&quot;</span>, <span class="ident">after</span>);
             <span class="comment">// should not error, ignoring</span>
         }
 
-        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;limit={}&quot;</span>, <span class="ident">limit</span>.<span class="ident">unwrap_or</span>(<span class="ident">constants::MEMBER_FETCH_LIMIT</span>));
         <span class="comment">// should not error, ignoring</span>
 
         <span class="ident">s</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_member_me</span>(<span class="ident">guild_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/guilds/{}/members/@me&quot;</span>), <span class="ident">guild_id</span>)
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">guild_nickname</span>(<span class="ident">guild_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
@@ -2917,6 +3467,10 @@
         <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/users/{}&quot;</span>), <span class="ident">target</span>)
     }
 
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_me_connections</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
+        <span class="macro">api!</span>(<span class="string">&quot;/users/@me/connections&quot;</span>)
+    }
+
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_dm_channels</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Display</span><span class="op">&gt;</span>(<span class="ident">target</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/users/{}/channels&quot;</span>), <span class="ident">target</span>)
     }
@@ -2929,6 +3483,7 @@
         <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/users/{}/guilds&quot;</span>), <span class="ident">target</span>)
     }
 
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_guilds_optioned</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Display</span><span class="op">&gt;</span>(
         <span class="ident">target</span>: <span class="ident">D</span>,
         <span class="ident">after</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
@@ -2938,13 +3493,11 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/users/{}/guilds?limit={}&amp;&quot;</span>), <span class="ident">target</span>, <span class="ident">limit</span>);
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">after</span>) <span class="op">=</span> <span class="ident">after</span> {
-            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;after={}&quot;</span>, <span class="ident">after</span>);
             <span class="comment">// should not error, ignoring</span>
         }
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">before</span>) <span class="op">=</span> <span class="ident">before</span> {
-            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::let_underscore_must_use</span>)]</span>
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">write!</span>(<span class="ident">s</span>, <span class="string">&quot;&amp;before={}&quot;</span>, <span class="ident">before</span>);
             <span class="comment">// should not error, ignoring</span>
         }
@@ -3061,6 +3614,14 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">application_guild_commands_permissions</span>(<span class="ident">application_id</span>: <span class="ident">u64</span>, <span class="ident">guild_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/applications/{}/guilds/{}/commands/permissions&quot;</span>), <span class="ident">application_id</span>, <span class="ident">guild_id</span>)
     }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stage_instances</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="macro">api!</span>(<span class="string">&quot;/stage-instances&quot;</span>).<span class="ident">to_string</span>()
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stage_instance</span>(<span class="ident">channel_id</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="macro">format!</span>(<span class="macro">api!</span>(<span class="string">&quot;/stage-instances/{}&quot;</span>), <span class="ident">channel_id</span>)
+    }
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
@@ -3082,6 +3643,14 @@
     },
     <span class="ident">CreateChannel</span> {
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">CreateStageInstance</span>,
+    <span class="ident">CreatePublicThread</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+        <span class="ident">message_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">CreatePrivateThread</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
     },
     <span class="ident">CreateEmoji</span> {
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
@@ -3148,6 +3717,9 @@
         <span class="ident">channel_id</span>: <span class="ident">u64</span>,
     },
     <span class="ident">DeleteChannel</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">DeleteStageInstance</span> {
         <span class="ident">channel_id</span>: <span class="ident">u64</span>,
     },
     <span class="ident">DeleteEmoji</span> {
@@ -3235,6 +3807,9 @@
     <span class="ident">EditChannel</span> {
         <span class="ident">channel_id</span>: <span class="ident">u64</span>,
     },
+    <span class="ident">EditStageInstance</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+    },
     <span class="ident">EditEmoji</span> {
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
         <span class="ident">emoji_id</span>: <span class="ident">u64</span>,
@@ -3296,6 +3871,9 @@
         <span class="ident">channel_id</span>: <span class="ident">u64</span>,
         <span class="ident">message_id</span>: <span class="ident">u64</span>,
     },
+    <span class="ident">EditMemberMe</span> {
+        <span class="ident">guild_id</span>: <span class="ident">u64</span>,
+    },
     <span class="ident">EditNickname</span> {
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
     },
@@ -3343,6 +3921,20 @@
         <span class="ident">wait</span>: <span class="ident">bool</span>,
         <span class="ident">webhook_id</span>: <span class="ident">u64</span>,
     },
+    <span class="ident">JoinThread</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">LeaveThread</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">AddThreadMember</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+        <span class="ident">user_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">RemoveThreadMember</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+        <span class="ident">user_id</span>: <span class="ident">u64</span>,
+    },
     <span class="ident">GetActiveMaintenance</span>,
     <span class="ident">GetAuditLogs</span> {
         <span class="ident">action_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
@@ -3366,6 +3958,30 @@
     },
     <span class="ident">GetChannels</span> {
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">GetStageInstance</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">GetChannelThreadMembers</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">GetChannelActiveThreads</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">GetChannelArchivedPublicThreads</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+        <span class="ident">before</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+        <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+    },
+    <span class="ident">GetChannelArchivedPrivateThreads</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+        <span class="ident">before</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+        <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+    },
+    <span class="ident">GetChannelJoinedPrivateArchivedThreads</span> {
+        <span class="ident">channel_id</span>: <span class="ident">u64</span>,
+        <span class="ident">before</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+        <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
     },
     <span class="ident">GetCurrentApplicationInfo</span>,
     <span class="ident">GetCurrentUser</span>,
@@ -3492,6 +4108,7 @@
     <span class="ident">GetUser</span> {
         <span class="ident">user_id</span>: <span class="ident">u64</span>,
     },
+    <span class="ident">GetUserConnections</span>,
     <span class="ident">GetUserDmChannels</span>,
     <span class="ident">GetVoiceRegions</span>,
     <span class="ident">GetWebhook</span> {
@@ -3524,6 +4141,11 @@
         <span class="ident">guild_id</span>: <span class="ident">u64</span>,
         <span class="ident">role_id</span>: <span class="ident">u64</span>,
         <span class="ident">user_id</span>: <span class="ident">u64</span>,
+    },
+    <span class="ident">SearchGuildMembers</span> {
+        <span class="ident">guild_id</span>: <span class="ident">u64</span>,
+        <span class="ident">query</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
+        <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
     },
     <span class="ident">StartGuildPrune</span> {
         <span class="ident">days</span>: <span class="ident">u64</span>,
@@ -3583,6 +4205,24 @@
                 <span class="ident">LightMethod::Post</span>,
                 <span class="ident">Route::GuildsIdChannels</span>(<span class="ident">guild_id</span>),
                 <span class="ident">Cow::from</span>(<span class="ident">Route::guild_channels</span>(<span class="ident">guild_id</span>)),
+            ),
+            <span class="ident">RouteInfo::CreateStageInstance</span> <span class="op">=</span><span class="op">&gt;</span> {
+                (<span class="ident">LightMethod::Post</span>, <span class="ident">Route::StageInstances</span>, <span class="ident">Cow::from</span>(<span class="ident">Route::stage_instances</span>()))
+            },
+            <span class="ident">RouteInfo::CreatePublicThread</span> {
+                <span class="ident">channel_id</span>,
+                <span class="ident">message_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Post</span>,
+                <span class="ident">Route::ChannelsIdMessagesIdThreads</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_public_threads</span>(<span class="ident">channel_id</span>, <span class="ident">message_id</span>)),
+            ),
+            <span class="ident">RouteInfo::CreatePrivateThread</span> {
+                <span class="ident">channel_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Post</span>,
+                <span class="ident">Route::ChannelsIdThreads</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_private_threads</span>(<span class="ident">channel_id</span>)),
             ),
             <span class="ident">RouteInfo::CreateEmoji</span> {
                 <span class="ident">guild_id</span>,
@@ -3718,6 +4358,13 @@
                 <span class="ident">LightMethod::Delete</span>,
                 <span class="ident">Route::ChannelsId</span>(<span class="ident">channel_id</span>),
                 <span class="ident">Cow::from</span>(<span class="ident">Route::channel</span>(<span class="ident">channel_id</span>)),
+            ),
+            <span class="ident">RouteInfo::DeleteStageInstance</span> {
+                <span class="ident">channel_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Delete</span>,
+                <span class="ident">Route::StageInstancesChannelId</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::stage_instance</span>(<span class="ident">channel_id</span>)),
             ),
             <span class="ident">RouteInfo::DeleteEmoji</span> {
                 <span class="ident">emoji_id</span>,
@@ -3877,6 +4524,13 @@
                 <span class="ident">Route::ChannelsId</span>(<span class="ident">channel_id</span>),
                 <span class="ident">Cow::from</span>(<span class="ident">Route::channel</span>(<span class="ident">channel_id</span>)),
             ),
+            <span class="ident">RouteInfo::EditStageInstance</span> {
+                <span class="ident">channel_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Patch</span>,
+                <span class="ident">Route::StageInstancesChannelId</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::stage_instance</span>(<span class="ident">channel_id</span>)),
+            ),
             <span class="ident">RouteInfo::EditEmoji</span> {
                 <span class="ident">emoji_id</span>,
                 <span class="ident">guild_id</span>,
@@ -3980,6 +4634,13 @@
                 <span class="ident">LightMethod::Patch</span>,
                 <span class="ident">Route::ChannelsIdMessagesId</span>(<span class="ident">LightMethod::Patch</span>, <span class="ident">channel_id</span>),
                 <span class="ident">Cow::from</span>(<span class="ident">Route::channel_message</span>(<span class="ident">channel_id</span>, <span class="ident">message_id</span>)),
+            ),
+            <span class="ident">RouteInfo::EditMemberMe</span> {
+                <span class="ident">guild_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Patch</span>,
+                <span class="ident">Route::GuildsIdMembersMe</span>(<span class="ident">guild_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::guild_member_me</span>(<span class="ident">guild_id</span>)),
             ),
             <span class="ident">RouteInfo::EditNickname</span> {
                 <span class="ident">guild_id</span>,
@@ -4109,6 +4770,13 @@
                 <span class="ident">Route::ChannelsId</span>(<span class="ident">channel_id</span>),
                 <span class="ident">Cow::from</span>(<span class="ident">Route::channel</span>(<span class="ident">channel_id</span>)),
             ),
+            <span class="ident">RouteInfo::GetStageInstance</span> {
+                <span class="ident">channel_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Get</span>,
+                <span class="ident">Route::StageInstancesChannelId</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::stage_instance</span>(<span class="ident">channel_id</span>)),
+            ),
             <span class="ident">RouteInfo::GetChannelInvites</span> {
                 <span class="ident">channel_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (
@@ -4129,6 +4797,77 @@
                 <span class="ident">LightMethod::Get</span>,
                 <span class="ident">Route::GuildsIdChannels</span>(<span class="ident">guild_id</span>),
                 <span class="ident">Cow::from</span>(<span class="ident">Route::guild_channels</span>(<span class="ident">guild_id</span>)),
+            ),
+            <span class="ident">RouteInfo::GetChannelThreadMembers</span> {
+                <span class="ident">channel_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Get</span>,
+                <span class="ident">Route::ChannelsIdThreadMembers</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_thread_members</span>(<span class="ident">channel_id</span>)),
+            ),
+            <span class="ident">RouteInfo::GetChannelActiveThreads</span> {
+                <span class="ident">channel_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Get</span>,
+                <span class="ident">Route::ChannelsIdActiveThreads</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_active_threads</span>(<span class="ident">channel_id</span>)),
+            ),
+            <span class="ident">RouteInfo::GetChannelArchivedPublicThreads</span> {
+                <span class="ident">channel_id</span>,
+                <span class="ident">before</span>,
+                <span class="ident">limit</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Get</span>,
+                <span class="ident">Route::ChannelsIdArchivedPublicThreads</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_archived_public_threads</span>(<span class="ident">channel_id</span>, <span class="ident">before</span>, <span class="ident">limit</span>)),
+            ),
+            <span class="ident">RouteInfo::GetChannelArchivedPrivateThreads</span> {
+                <span class="ident">channel_id</span>,
+                <span class="ident">before</span>,
+                <span class="ident">limit</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Get</span>,
+                <span class="ident">Route::ChannelsIdArchivedPrivateThreads</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_archived_private_threads</span>(<span class="ident">channel_id</span>, <span class="ident">before</span>, <span class="ident">limit</span>)),
+            ),
+            <span class="ident">RouteInfo::GetChannelJoinedPrivateArchivedThreads</span> {
+                <span class="ident">channel_id</span>,
+                <span class="ident">before</span>,
+                <span class="ident">limit</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Get</span>,
+                <span class="ident">Route::ChannelsIdMeJoindedArchivedPrivateThreads</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_joined_private_threads</span>(<span class="ident">channel_id</span>, <span class="ident">before</span>, <span class="ident">limit</span>)),
+            ),
+            <span class="ident">RouteInfo::JoinThread</span> {
+                <span class="ident">channel_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Put</span>,
+                <span class="ident">Route::ChannelsIdThreadMembersMe</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_thread_member_me</span>(<span class="ident">channel_id</span>)),
+            ),
+            <span class="ident">RouteInfo::LeaveThread</span> {
+                <span class="ident">channel_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Delete</span>,
+                <span class="ident">Route::ChannelsIdThreadMembersMe</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_thread_member_me</span>(<span class="ident">channel_id</span>)),
+            ),
+            <span class="ident">RouteInfo::AddThreadMember</span> {
+                <span class="ident">channel_id</span>,
+                <span class="ident">user_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Put</span>,
+                <span class="ident">Route::ChannelsIdThreadMembersUserId</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_thread_member</span>(<span class="ident">channel_id</span>, <span class="ident">user_id</span>)),
+            ),
+            <span class="ident">RouteInfo::RemoveThreadMember</span> {
+                <span class="ident">channel_id</span>,
+                <span class="ident">user_id</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Delete</span>,
+                <span class="ident">Route::ChannelsIdThreadMembersUserId</span>(<span class="ident">channel_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::channel_thread_member</span>(<span class="ident">channel_id</span>, <span class="ident">user_id</span>)),
             ),
             <span class="ident">RouteInfo::GetCurrentApplicationInfo</span> <span class="op">=</span><span class="op">&gt;</span> {
                 (<span class="ident">LightMethod::Get</span>, <span class="ident">Route::None</span>, <span class="ident">Cow::from</span>(<span class="ident">Route::oauth2_application_current</span>()))
@@ -4373,6 +5112,11 @@
             <span class="ident">RouteInfo::GetUser</span> {
                 <span class="ident">user_id</span>,
             } <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">LightMethod::Get</span>, <span class="ident">Route::UsersId</span>, <span class="ident">Cow::from</span>(<span class="ident">Route::user</span>(<span class="ident">user_id</span>))),
+            <span class="ident">RouteInfo::GetUserConnections</span> <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Get</span>,
+                <span class="ident">Route::UsersMeConnections</span>,
+                <span class="ident">Cow::from</span>(<span class="ident">Route::user_me_connections</span>()),
+            ),
             <span class="ident">RouteInfo::GetUserDmChannels</span> <span class="op">=</span><span class="op">&gt;</span> (
                 <span class="ident">LightMethod::Get</span>,
                 <span class="ident">Route::UsersMeChannels</span>,
@@ -4444,6 +5188,15 @@
                 <span class="ident">Route::GuildsIdMembersIdRolesId</span>(<span class="ident">guild_id</span>),
                 <span class="ident">Cow::from</span>(<span class="ident">Route::guild_member_role</span>(<span class="ident">guild_id</span>, <span class="ident">user_id</span>, <span class="ident">role_id</span>)),
             ),
+            <span class="ident">RouteInfo::SearchGuildMembers</span> {
+                <span class="ident">guild_id</span>,
+                <span class="ident">query</span>,
+                <span class="ident">limit</span>,
+            } <span class="op">=</span><span class="op">&gt;</span> (
+                <span class="ident">LightMethod::Get</span>,
+                <span class="ident">Route::GuildsIdMembersSearch</span>(<span class="ident">guild_id</span>),
+                <span class="ident">Cow::from</span>(<span class="ident">Route::guild_members_search</span>(<span class="ident">guild_id</span>, <span class="ident">query</span>, <span class="ident">limit</span>)),
+            ),
             <span class="ident">RouteInfo::StartGuildPrune</span> {
                 <span class="ident">days</span>,
                 <span class="ident">guild_id</span>,
@@ -4482,4 +5235,5 @@
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="serenity" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
-    <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>
+    <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script>
+</body></html>

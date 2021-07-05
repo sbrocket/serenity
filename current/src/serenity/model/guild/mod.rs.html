@@ -1,7 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/model/guild/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../../storage.js"></script><script src="../../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg">
-<link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../../serenity/index.html'><div class='logo-container rust-logo'><img src='../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button">?</button>
-                <a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;model&#x2F;guild&#x2F;mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../../storage.js"></script><script src="../../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../../serenity/index.html'><div class='logo-container rust-logo'><img src='../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -3152,10 +3149,112 @@
 <span id="3149">3149</span>
 <span id="3150">3150</span>
 <span id="3151">3151</span>
+<span id="3152">3152</span>
+<span id="3153">3153</span>
+<span id="3154">3154</span>
+<span id="3155">3155</span>
+<span id="3156">3156</span>
+<span id="3157">3157</span>
+<span id="3158">3158</span>
+<span id="3159">3159</span>
+<span id="3160">3160</span>
+<span id="3161">3161</span>
+<span id="3162">3162</span>
+<span id="3163">3163</span>
+<span id="3164">3164</span>
+<span id="3165">3165</span>
+<span id="3166">3166</span>
+<span id="3167">3167</span>
+<span id="3168">3168</span>
+<span id="3169">3169</span>
+<span id="3170">3170</span>
+<span id="3171">3171</span>
+<span id="3172">3172</span>
+<span id="3173">3173</span>
+<span id="3174">3174</span>
+<span id="3175">3175</span>
+<span id="3176">3176</span>
+<span id="3177">3177</span>
+<span id="3178">3178</span>
+<span id="3179">3179</span>
+<span id="3180">3180</span>
+<span id="3181">3181</span>
+<span id="3182">3182</span>
+<span id="3183">3183</span>
+<span id="3184">3184</span>
+<span id="3185">3185</span>
+<span id="3186">3186</span>
+<span id="3187">3187</span>
+<span id="3188">3188</span>
+<span id="3189">3189</span>
+<span id="3190">3190</span>
+<span id="3191">3191</span>
+<span id="3192">3192</span>
+<span id="3193">3193</span>
+<span id="3194">3194</span>
+<span id="3195">3195</span>
+<span id="3196">3196</span>
+<span id="3197">3197</span>
+<span id="3198">3198</span>
+<span id="3199">3199</span>
+<span id="3200">3200</span>
+<span id="3201">3201</span>
+<span id="3202">3202</span>
+<span id="3203">3203</span>
+<span id="3204">3204</span>
+<span id="3205">3205</span>
+<span id="3206">3206</span>
+<span id="3207">3207</span>
+<span id="3208">3208</span>
+<span id="3209">3209</span>
+<span id="3210">3210</span>
+<span id="3211">3211</span>
+<span id="3212">3212</span>
+<span id="3213">3213</span>
+<span id="3214">3214</span>
+<span id="3215">3215</span>
+<span id="3216">3216</span>
+<span id="3217">3217</span>
+<span id="3218">3218</span>
+<span id="3219">3219</span>
+<span id="3220">3220</span>
+<span id="3221">3221</span>
+<span id="3222">3222</span>
+<span id="3223">3223</span>
+<span id="3224">3224</span>
+<span id="3225">3225</span>
+<span id="3226">3226</span>
+<span id="3227">3227</span>
+<span id="3228">3228</span>
+<span id="3229">3229</span>
+<span id="3230">3230</span>
+<span id="3231">3231</span>
+<span id="3232">3232</span>
+<span id="3233">3233</span>
+<span id="3234">3234</span>
+<span id="3235">3235</span>
+<span id="3236">3236</span>
+<span id="3237">3237</span>
+<span id="3238">3238</span>
+<span id="3239">3239</span>
+<span id="3240">3240</span>
+<span id="3241">3241</span>
+<span id="3242">3242</span>
+<span id="3243">3243</span>
+<span id="3244">3244</span>
+<span id="3245">3245</span>
+<span id="3246">3246</span>
+<span id="3247">3247</span>
+<span id="3248">3248</span>
+<span id="3249">3249</span>
+<span id="3250">3250</span>
+<span id="3251">3251</span>
+<span id="3252">3252</span>
+<span id="3253">3253</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Models relating to guilds and types that it owns.</span>
 
-<span class="comment">// FIXME: Remove after `GuildEmbed` is removed.</span>
+<span class="comment">// FIXME: Remove after the removal of the `̀nsfw` field and the `GuildEmbed` structure.</span>
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
 
 <span class="kw">mod</span> <span class="ident">audit_log</span>;
@@ -3224,7 +3323,7 @@
         <span class="ident">CreateApplicationCommands</span>,
         <span class="ident">CreateApplicationCommandsPermissions</span>,
     },
-    <span class="ident">model::interactions::ApplicationCommand</span>,
+    <span class="ident">model::interactions::application_command</span>::{<span class="ident">ApplicationCommand</span>, <span class="ident">ApplicationCommandPermission</span>},
 };
 
 <span class="doccomment">/// A representation of a banning of a user.</span>
@@ -3281,6 +3380,9 @@
     <span class="doccomment">/// - `VERIFIED`</span>
     <span class="doccomment">/// - `VIP_REGIONS`</span>
     <span class="doccomment">/// - `WELCOME_SCREEN_ENABLED`</span>
+    <span class="doccomment">/// - `THREE_DAY_THREAD_ARCHIVE`</span>
+    <span class="doccomment">/// - `SEVEN_DAY_THREAD_ARCHIVE`</span>
+    <span class="doccomment">/// - `PRIVATE_THREADS`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`discord documentation`]: https://discord.com/developers/docs/resources/guild#guild-object-guild-features</span>
@@ -3379,7 +3481,13 @@
     <span class="doccomment">/// Whether or not this guild is designated as NSFW. See [`discord support article`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`discord support article`]: https://support.discord.com/hc/en-us/articles/1500005389362-NSFW-Server-Designation</span>
+    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Removed in favor of Guild::nsfw_level.&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">nsfw</span>: <span class="ident">bool</span>,
+    <span class="doccomment">/// The guild NSFW state. See [`discord support article`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`discord support article`]: https://support.discord.com/hc/en-us/articles/1500005389362-NSFW-Server-Designation</span>
+    <span class="kw">pub</span> <span class="ident">nsfw_level</span>: <span class="ident">NsfwLevel</span>,
     <span class="doccomment">/// The maximum amount of users in a video channel.</span>
     <span class="kw">pub</span> <span class="ident">max_video_channel_users</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The maximum number of presences for the guild. The default value is currently 25000.</span>
@@ -3392,6 +3500,12 @@
     <span class="kw">pub</span> <span class="ident">widget_enabled</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The channel id that the widget will generate an invite to, or null if set to no invite</span>
     <span class="kw">pub</span> <span class="ident">widget_channel_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChannelId</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// The stage instances in this guild.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">stage_instances</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StageInstance</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// All active threads in this guild that current user has permission to view.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">threads</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">GuildChannel</span><span class="op">&gt;</span>,
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;model&quot;</span>)]</span>
@@ -3767,7 +3881,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns the same possible errors as `create_global_application_command`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ApplicationCommand`]: crate::model::interactions::ApplicationCommand</span>
+    <span class="doccomment">/// [`ApplicationCommand`]: crate::model::interactions::application_command::ApplicationCommand</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_errors_doc</span>)]</span>
@@ -3783,13 +3897,12 @@
         <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">create_application_command</span>(<span class="ident">http</span>, <span class="ident">f</span>).<span class="kw">await</span>
     }
 
-    <span class="doccomment">/// Same as [`create_application_command`], but allows to create more</span>
-    <span class="doccomment">/// than one command per call.</span>
+    <span class="doccomment">/// Overrides all guild application commands.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`create_application_command`]: Self::create_application_command</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)))]</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">create_application_commands</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">set_application_commands</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">http</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Http</span><span class="op">&gt;</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
@@ -3797,14 +3910,14 @@
     <span class="kw">where</span>
         <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CreateApplicationCommands</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CreateApplicationCommands</span>,
     {
-        <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">create_application_commands</span>(<span class="ident">http</span>, <span class="ident">f</span>).<span class="kw">await</span>
+        <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">set_application_commands</span>(<span class="ident">http</span>, <span class="ident">f</span>).<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Creates a guild specific [`ApplicationCommandPermission`].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// **Note**: It will update instantly.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [`ApplicationCommandPermission`]: crate::model::interactions::ApplicationCommandPermission</span>
+    <span class="doccomment">/// [`ApplicationCommandPermission`]: crate::model::interactions::application_command::ApplicationCommandPermission</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">create_application_command_permission</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
@@ -3821,13 +3934,10 @@
         <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">create_application_command_permission</span>(<span class="ident">http</span>, <span class="ident">command_id</span>, <span class="ident">f</span>).<span class="kw">await</span>
     }
 
-    <span class="doccomment">/// Same as [`create_application_command_permission`] but allows to create</span>
-    <span class="doccomment">/// more than one permission per call.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [`create_application_command_permission`]: Self::create_application_command_permission</span>
+    <span class="doccomment">/// Overrides all application commands permissions.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)))]</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">create_application_commands_permissions</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">set_application_commands_permissions</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">http</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Http</span><span class="op">&gt;</span>,
         <span class="ident">f</span>: <span class="ident">F</span>,
@@ -3837,7 +3947,7 @@
             <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CreateApplicationCommandsPermissions</span>,
         ) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CreateApplicationCommandsPermissions</span>,
     {
-        <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">create_application_commands_permissions</span>(<span class="ident">http</span>, <span class="ident">f</span>).<span class="kw">await</span>
+        <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">set_application_commands_permissions</span>(<span class="ident">http</span>, <span class="ident">f</span>).<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Get all guild application commands.</span>
@@ -4590,6 +4700,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// - **username**: &quot;zey&quot;</span>
     <span class="doccomment">/// - **username and discriminator**: &quot;zey#5479&quot;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Note**: This will only search members that are cached. If you want to</span>
+    <span class="doccomment">/// search all members in the guild via the Http API, use</span>
+    <span class="doccomment">/// [`Self::search_members`].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">member_named</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Member</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">name</span>, <span class="ident">discrim</span>) <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">pos</span>) <span class="op">=</span> <span class="ident">name</span>.<span class="ident">rfind</span>(<span class="string">&#39;#&#39;</span>) {
             <span class="kw">let</span> <span class="ident">split</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">split_at</span>(<span class="ident">pos</span> <span class="op">+</span> <span class="number">1</span>);
@@ -4636,6 +4750,10 @@
     <span class="doccomment">/// However, since the read-locks are dropped after borrowing the name,</span>
     <span class="doccomment">/// the names might have been changed by the user, the sorted list cannot</span>
     <span class="doccomment">/// account for this.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Note**: This will only search members that are cached. If you want to</span>
+    <span class="doccomment">/// search all members in the guild via the Http API, use</span>
+    <span class="doccomment">/// [`Self::search_members`].</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">members_starting_with</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">prefix</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -4704,6 +4822,10 @@
     <span class="doccomment">/// However, since the read-locks are dropped after borrowing the name,</span>
     <span class="doccomment">/// the names might have been changed by the user, the sorted list cannot</span>
     <span class="doccomment">/// account for this.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Note**: This will only search members that are cached. If you want to</span>
+    <span class="doccomment">/// search all members in the guild via the Http API, use</span>
+    <span class="doccomment">/// [`Self::search_members`].</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">members_containing</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">substring</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -4767,6 +4889,10 @@
     <span class="doccomment">/// However, since the read-locks are dropped after borrowing the name,</span>
     <span class="doccomment">/// the names might have been changed by the user, the sorted list cannot</span>
     <span class="doccomment">/// account for this.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Note**: This will only search members that are cached. If you want to</span>
+    <span class="doccomment">/// search all members in the guild via the Http API, use</span>
+    <span class="doccomment">/// [`Self::search_members`].</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">members_username_containing</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">substring</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -4777,13 +4903,9 @@
             .<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">member</span><span class="op">|</span> <span class="kw">async</span> <span class="kw">move</span> {
                 <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">member</span>.<span class="ident">user</span>.<span class="ident">name</span>;
 
-                <span class="kw">if</span> <span class="ident">case_sensitive</span> {
-                    <span class="kw">if</span> <span class="ident">name</span>.<span class="ident">contains</span>(<span class="ident">substring</span>) {
-                        <span class="prelude-val">Some</span>((<span class="ident">member</span>, <span class="ident">name</span>.<span class="ident">to_string</span>()))
-                    } <span class="kw">else</span> {
-                        <span class="prelude-val">None</span>
-                    }
-                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">contains_case_insensitive</span>(<span class="ident">name</span>, <span class="ident">substring</span>) {
+                <span class="kw">if</span> (<span class="ident">case_sensitive</span> <span class="op">&amp;&amp;</span> <span class="ident">name</span>.<span class="ident">contains</span>(<span class="ident">substring</span>))
+                    <span class="op">|</span><span class="op">|</span> <span class="ident">contains_case_insensitive</span>(<span class="ident">name</span>, <span class="ident">substring</span>)
+                {
                     <span class="prelude-val">Some</span>((<span class="ident">member</span>, <span class="ident">name</span>.<span class="ident">to_string</span>()))
                 } <span class="kw">else</span> {
                     <span class="prelude-val">None</span>
@@ -4825,6 +4947,10 @@
     <span class="doccomment">/// However, since the read-locks are dropped after borrowing the name,</span>
     <span class="doccomment">/// the names might have been changed by the user, the sorted list cannot</span>
     <span class="doccomment">/// account for this.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Note**: This will only search members that are cached. If you want to</span>
+    <span class="doccomment">/// search all members in the guild via the Http API, use</span>
+    <span class="doccomment">/// [`Self::search_members`].</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">members_nick_containing</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">substring</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
@@ -4886,23 +5012,29 @@
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Permissions::all</span>());
         }
 
+        <span class="kw">let</span> <span class="ident">member</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">member</span>(<span class="ident">cache_http</span>, <span class="kw-2">&amp;</span><span class="ident">user_id</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">_member_permission_from_member</span>(<span class="kw-2">&amp;</span><span class="ident">member</span>))
+    }
+
+    <span class="doccomment">/// Helper function that&#39;s used for getting a [`Member`]&#39;s permissions.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;cache&quot;</span>)]</span>
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">_member_permission_from_member</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">member</span>: <span class="kw-2">&amp;</span><span class="ident">Member</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Permissions</span> {
         <span class="kw">let</span> <span class="ident">everyone</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">roles</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">RoleId</span>(<span class="self">self</span>.<span class="ident">id</span>.<span class="number">0</span>)) {
             <span class="prelude-val">Some</span>(<span class="ident">everyone</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">everyone</span>,
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">error!</span>(<span class="string">&quot;@everyone role ({}) missing in &#39;{}&#39;&quot;</span>, <span class="self">self</span>.<span class="ident">id</span>, <span class="self">self</span>.<span class="ident">name</span>,);
 
-                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Permissions::empty</span>());
+                <span class="kw">return</span> <span class="ident">Permissions::empty</span>();
             },
         };
-
-        <span class="kw">let</span> <span class="ident">member</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">member</span>(<span class="ident">cache_http</span>, <span class="kw-2">&amp;</span><span class="ident">user_id</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">permissions</span> <span class="op">=</span> <span class="ident">everyone</span>.<span class="ident">permissions</span>;
 
         <span class="kw">for</span> <span class="ident">role</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">member</span>.<span class="ident">roles</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">role</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">roles</span>.<span class="ident">get</span>(<span class="ident">role</span>) {
                 <span class="kw">if</span> <span class="ident">role</span>.<span class="ident">permissions</span>.<span class="ident">contains</span>(<span class="ident">Permissions::ADMINISTRATOR</span>) {
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Permissions::all</span>());
+                    <span class="kw">return</span> <span class="ident">Permissions::all</span>();
                 }
 
                 <span class="ident">permissions</span> <span class="op">|</span><span class="op">=</span> <span class="ident">role</span>.<span class="ident">permissions</span>;
@@ -4911,7 +5043,7 @@
             }
         }
 
-        <span class="prelude-val">Ok</span>(<span class="ident">permissions</span>)
+        <span class="ident">permissions</span>
     }
 
     <span class="doccomment">/// Moves a member to a specific voice channel.</span>
@@ -5177,6 +5309,29 @@
         <span class="ident">It</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">ChannelId</span>, <span class="ident">u64</span>)<span class="op">&gt;</span>,
     {
         <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">reorder_channels</span>(<span class="kw-2">&amp;</span><span class="ident">http</span>, <span class="ident">channels</span>).<span class="kw">await</span>
+    }
+
+    <span class="doccomment">/// Returns a list of [`Member`]s in a [`Guild`] whose username or nickname</span>
+    <span class="doccomment">/// starts with a provided string.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Optionally pass in the `limit` to limit the number of results.</span>
+    <span class="doccomment">/// Minimum value is 1, maximum and default value is 1000.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Note**: Queries are case insensitive.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Errors</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns an [`Error::Http`] if the API returns an error.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`Error::Http`]: crate::error::Error::Http</span>
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">search_members</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">http</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Http</span><span class="op">&gt;</span>,
+        <span class="ident">query</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+        <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Member</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">id</span>.<span class="ident">search_members</span>(<span class="ident">http</span>, <span class="ident">query</span>, <span class="ident">limit</span>).<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Returns the Id of the shard associated with the guild.</span>
@@ -5679,6 +5834,12 @@
             .<span class="ident">and_then</span>(<span class="ident">bool::deserialize</span>)
             .<span class="ident">map_err</span>(<span class="ident">DeError::custom</span>)<span class="question-mark">?</span>;
 
+        <span class="kw">let</span> <span class="ident">nsfw_level</span> <span class="op">=</span> <span class="ident">map</span>
+            .<span class="ident">remove</span>(<span class="string">&quot;nsfw_level&quot;</span>)
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError::custom</span>(<span class="string">&quot;expected nsfw_level&quot;</span>))
+            .<span class="ident">and_then</span>(<span class="ident">NsfwLevel::deserialize</span>)
+            .<span class="ident">map_err</span>(<span class="ident">DeError::custom</span>)<span class="question-mark">?</span>;
+
         <span class="kw">let</span> <span class="ident">widget_enabled</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">remove</span>(<span class="string">&quot;widget_enabled&quot;</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span><span class="ident">::deserialize</span>(<span class="ident">v</span>).<span class="ident">map_err</span>(<span class="ident">DeError::custom</span>)<span class="question-mark">?</span>,
             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
@@ -5704,6 +5865,16 @@
             .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">DeError::custom</span>(<span class="string">&quot;expected system_channel_flags&quot;</span>))
             .<span class="ident">and_then</span>(<span class="ident">SystemChannelFlags::deserialize</span>)
             .<span class="ident">map_err</span>(<span class="ident">DeError::custom</span>)<span class="question-mark">?</span>;
+
+        <span class="kw">let</span> <span class="ident">stage_instances</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">remove</span>(<span class="string">&quot;stage_instances&quot;</span>) {
+            <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">StageInstance</span><span class="op">&gt;</span><span class="ident">::deserialize</span>(<span class="ident">v</span>).<span class="ident">map_err</span>(<span class="ident">DeError::custom</span>)<span class="question-mark">?</span>,
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Vec::new</span>(),
+        };
+
+        <span class="kw">let</span> <span class="ident">threads</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">map</span>.<span class="ident">remove</span>(<span class="string">&quot;threads&quot;</span>) {
+            <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">GuildChannel</span><span class="op">&gt;</span><span class="ident">::deserialize</span>(<span class="ident">v</span>).<span class="ident">map_err</span>(<span class="ident">DeError::custom</span>)<span class="question-mark">?</span>,
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Vec::new</span>(),
+        };
 
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
@@ -5745,11 +5916,14 @@
             <span class="ident">approximate_member_count</span>,
             <span class="ident">approximate_presence_count</span>,
             <span class="ident">nsfw</span>,
+            <span class="ident">nsfw_level</span>,
             <span class="ident">max_video_channel_users</span>,
             <span class="ident">max_presences</span>,
             <span class="ident">max_members</span>,
             <span class="ident">widget_enabled</span>,
             <span class="ident">widget_channel_id</span>,
+            <span class="ident">stage_instances</span>,
+            <span class="ident">threads</span>,
         })
     }
 }
@@ -6180,6 +6354,29 @@
     <span class="ident">Higher</span>
 });
 
+<span class="doccomment">/// The [`Guild`] nsfw level.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">NsfwLevel</span> {
+    <span class="doccomment">/// The nsfw level is not specified.</span>
+    <span class="ident">Default</span> <span class="op">=</span> <span class="number">0</span>,
+    <span class="doccomment">/// The guild is considered as explicit.</span>
+    <span class="ident">Explicit</span> <span class="op">=</span> <span class="number">1</span>,
+    <span class="doccomment">/// The guild is considered as safe.</span>
+    <span class="ident">Safe</span> <span class="op">=</span> <span class="number">2</span>,
+    <span class="doccomment">/// The guild is age restricted.</span>
+    <span class="ident">AgeRestricted</span> <span class="op">=</span> <span class="number">3</span>,
+    <span class="doccomment">/// Unknown nsfw level.</span>
+    <span class="ident">Unknown</span> <span class="op">=</span> <span class="op">!</span><span class="number">0</span>,
+}
+
+<span class="macro">enum_number!</span>(<span class="ident">NsfwLevel</span> {
+    <span class="ident">Default</span>,
+    <span class="ident">Explicit</span>,
+    <span class="ident">Safe</span>,
+    <span class="ident">AgeRestricted</span>
+});
+
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test</span> {
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;model&quot;</span>)]</span>
@@ -6214,6 +6411,7 @@
                 <span class="ident">premium_since</span>: <span class="prelude-val">None</span>,
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable_discord_api&quot;</span>)]</span>
                 <span class="ident">permissions</span>: <span class="prelude-val">None</span>,
+                <span class="ident">avatar</span>: <span class="prelude-val">None</span>,
             }
         }
 
@@ -6275,6 +6473,7 @@
                 <span class="ident">approximate_member_count</span>: <span class="prelude-val">None</span>,
                 <span class="ident">approximate_presence_count</span>: <span class="prelude-val">None</span>,
                 <span class="ident">nsfw</span>: <span class="bool-val">false</span>,
+                <span class="ident">nsfw_level</span>: <span class="ident">NsfwLevel::Default</span>,
                 <span class="ident">max_video_channel_users</span>: <span class="prelude-val">None</span>,
                 <span class="ident">max_presences</span>: <span class="prelude-val">None</span>,
                 <span class="ident">max_members</span>: <span class="prelude-val">None</span>,
@@ -6282,6 +6481,8 @@
                 <span class="ident">discovery_splash</span>: <span class="prelude-val">None</span>,
                 <span class="ident">widget_channel_id</span>: <span class="prelude-val">None</span>,
                 <span class="ident">public_updates_channel_id</span>: <span class="prelude-val">None</span>,
+                <span class="ident">stage_instances</span>: <span class="macro">vec!</span>[],
+                <span class="ident">threads</span>: <span class="macro">vec!</span>[],
             }
         }
 
@@ -6306,4 +6507,5 @@
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="serenity" data-search-index-js="../../../../search-index.js" data-search-js="../../../../search.js"></div>
-    <script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script></body></html>
+    <script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script>
+</body></html>
